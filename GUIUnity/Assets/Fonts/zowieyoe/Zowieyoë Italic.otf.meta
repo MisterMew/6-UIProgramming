@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: b25a8d4518eef444099827f9e71a84bf
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Zowieyo?
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3117f78516c256642ba48046804d2f34, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
