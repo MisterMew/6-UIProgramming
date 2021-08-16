@@ -31,11 +31,4 @@ public class SettingsMenu : MonoBehaviour {
 
         Debug.Log("RESOLUTION: " + mRes.x + "x" + mRes.y);
     }
-
-    /* Set the program volume */
-    public void SetVolume(float volume) {
-        Debug.Log("VOLUME: " + volume);
-
-        audioMixer.SetFloat("volume", volume);
-    }
 }
