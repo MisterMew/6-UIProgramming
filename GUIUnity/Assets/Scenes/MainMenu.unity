@@ -1114,7 +1114,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Master   00dB
+  m_Text: Master
 --- !u!222 &370251882
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3165,7 +3165,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Music   00dB
+  m_Text: Music
 --- !u!222 &1176638113
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3567,7 +3567,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: SFX   00dB
+  m_Text: SFX
 --- !u!222 &1306638548
 CanvasRenderer:
   m_ObjectHideFlags: 0
