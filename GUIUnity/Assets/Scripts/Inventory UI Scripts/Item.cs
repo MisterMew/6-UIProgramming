@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/New Item")]
-public class Item : ScriptableObject {
-    public string itemName;
-    [TextArea] public string itemDescription;
 
+public class Item : ScriptableObject {
+    /// Variables
+    public string itemName;
     public Sprite itemSprite;
-    public int itemStack;
-    public bool isStackable { get { return (itemStack > 1); } } //Return true if item is stackable
+
+    [TextArea] //Space for an item description
+     public string itemDescription;
+
+    public int itemMaxStack;
+    public bool isStackable { get { return (itemMaxStack > 1); } } //Return true if item is stackable
+
+    public int itemMaxDurability;
+    public bool isDegradable { get { return (itemMaxDurability > 1); } } //Return true if item is degradable
 }
