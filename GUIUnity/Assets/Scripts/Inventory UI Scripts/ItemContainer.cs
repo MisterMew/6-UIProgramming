@@ -8,29 +8,43 @@ public class ItemContainer : MonoBehaviour {
     public static bool inventoryIsOpen = false;
 
     [Header("Container UI Elements")]
-    public GameObject parentUI;
-    public Text title;
-    public Transform contentWindow; //GridLayoutWindow used to display our UIItemSlots.
+    public GameObject parentUIA;
+    public GameObject parentUIB;
+    public Text titleA;
+    public Text titleB;
+    public Transform contentWindowA;  //GridLayoutWindow used to display our UIItemSlots.
+    public Transform contentWindowB; //GridLayoutWindow used to display our UIItemSlots.
 
     [Header("Container Details")]
-    public string containerName;
+    public string containerNameA;
+    public string containerNameB;
     public GameObject SlotPrefab; //UIItemSlots prefab
 
     List<ItemSlot> items = new List<ItemSlot>();
+    List<UIItemSlot> UISlots = new List<UIItemSlot>();
 
     private void Awake() {
         //SlotPrefab = Resources.Load<GameObject>("Prefabs/UIItemSlot");
 
         #region Demonstration Code
     
-        Item[] tempItems = new Item[6];
-        tempItems[0] = Resources.Load<Item>("Items/strange_skull");
-        tempItems[1] = Resources.Load<Item>("Items/sahred_indigo");
-        tempItems[2] = Resources.Load<Item>("Items/shard_orange");
-        tempItems[3] = Resources.Load<Item>("Items/ribbon");
-        tempItems[4] = Resources.Load<Item>("Items/bone");
-        tempItems[5] = Resources.Load<Item>("Items/wand");
-    
+        Item[] tempItems = new Item[14];
+        tempItems[0] = Resources.Load<Item>("Items/crystal_cyan");
+        tempItems[1] = Resources.Load<Item>("Items/crystal_brown");
+        tempItems[2] = Resources.Load<Item>("Items/crystal_indigo");
+        tempItems[3] = Resources.Load<Item>("Items/crystal_orange");
+        tempItems[4] = Resources.Load<Item>("Items/crystal_purple");
+
+        tempItems[5] = Resources.Load<Item>("Items/shard_cyan");
+        tempItems[6] = Resources.Load<Item>("Items/shard_brown");
+        tempItems[7] = Resources.Load<Item>("Items/shard_indigo");
+        tempItems[8] = Resources.Load<Item>("Items/shard_orange");
+        tempItems[9] = Resources.Load<Item>("Items/shard_purple");
+
+        tempItems[10] = Resources.Load<Item>("Items/strange_skull");
+        tempItems[11] = Resources.Load<Item>("Items/pickaxe");
+        tempItems[12] = Resources.Load<Item>("Items/shovel");
+        tempItems[13] = Resources.Load<Item>("Items/wand");
     
         for (int i = 0; i < 48; i++) {
             int index = Random.Range(0, tempItems.Length);
@@ -38,47 +52,58 @@ public class ItemContainer : MonoBehaviour {
             int condition = tempItems[index].itemMaxDurability;
     
             items.Add(new ItemSlot(tempItems[index].name, amount, condition));
-            
         }
         #endregion
     }
-    
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.P))
-            CloseContainer();
-    
-        if (Input.GetKeyDown(KeyCode.I))
-            OpenContainer(items);
+
+    private void Start() {
+        titleA.text = containerNameA.ToUpper();  //Set the name of the container
+        titleB.text = containerNameB.ToUpper(); //Set the name of the container
+
+        // Loop through each item in the given items list and instantiate a new UIItemSlot prefab for each one.
+        for (int i = 0; i < items.Count; i++) {
+            GameObject newSlota = Instantiate(SlotPrefab, contentWindowA);  //Make sure our GridLayoutWindow is set as the parent of the new UIItemSlot object.
+            GameObject newSlotb = Instantiate(SlotPrefab, contentWindowB); //Make sure our GridLayoutWindow is set as the parent of the new UIItemSlot object.
+
+            newSlota.name = i.ToString();                       //Name the new slot with its index in the list so we have a way of identifying it.
+            newSlotb.name = i.ToString();                      //Name the new slot with its index in the list so we have a way of identifying it.
+            UISlots.Add(newSlota.GetComponent<UIItemSlot>()); //Add the new slot to our UISlots list so we can find it later.
+            UISlots.Add(newSlotb.GetComponent<UIItemSlot>());//Add the new slot to our UISlots list so we can find it later.
+            items[i].AttachUI(UISlots[i]);                  //Attach the UIItemSlot to the ItemSlot it corresponds to.
+        }
     }
-    
-    List<UIItemSlot> UISlots = new List<UIItemSlot>();
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.E)) {
+            if (!inventoryIsOpen) {
+                OpenContainer(items);
+            } else {
+                CloseContainer(); 
+            }
+        }
+    }
+
 
     public void OpenContainer(List<ItemSlot> slots) {
         Debug.Log("Opened Inventory");
-
-        parentUI.SetActive(true);
-        title.text = containerName.ToUpper(); //Set the name of the container
-    
-        // Loop through each item in the given items list and instantiate a new UIItemSlot prefab for each one.
-        for (int i = 0; i < slots.Count; i++) {
-            GameObject newSlot = Instantiate(SlotPrefab, contentWindow); //Make sure our GridLayoutWindow is set as the parent of the new UIItemSlot object.
-            
-            newSlot.name = i.ToString();                      //Name the new slot with its index in the list so we have a way of identifying it.
-            UISlots.Add(newSlot.GetComponent<UIItemSlot>()); //Add the new slot to our UISlots list so we can find it later.
-            slots[i].AttachUI(UISlots[i]);                  //Attach the UIItemSlot to the ItemSlot it corresponds to.
-        }
+        parentUIA.SetActive(true);
+        parentUIB.SetActive(true);
+        inventoryIsOpen = true;
     }
     
     public void CloseContainer() {
         Debug.Log("Closed Inventory");
 
-        foreach (UIItemSlot slot in UISlots) { //For each slot in the UI
-            if (slot.itemSlot != null) {      //If the slot is not NULL
-                slot.itemSlot.DetachUI();    //Detach it from the UI
-            }
-            Destroy(slot.gameObject); //Delete the gameobject
-        }
-        UISlots.Clear();            //Clear the UISlots list
-        parentUI.SetActive(false); //Deactivate/close the window
+        //foreach (UIItemSlot slot in UISlots) { //For each slot in the UI
+        //    if (slot.itemSlot != null) {      //If the slot is not NULL
+        //        slot.itemSlot.DetachUI();    //Detach it from the UI
+        //    }
+        //    Destroy(slot.gameObject); //Delete the gameobject
+        //}
+        //UISlots.Clear();              //Clear the UISlots list
+
+        parentUIA.SetActive(false);  //Deactivate/close the window
+        parentUIB.SetActive(false); //Deactivate/close the window
+        inventoryIsOpen = false;
     }
 }

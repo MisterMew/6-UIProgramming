@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8864bd40b369aed418daf35e9aac44c9, type: 3}
   m_Name: wand
   m_EditorClassIdentifier: 
-  itemName: Wand
+  itemName: Broken Wand
   itemSprite: {fileID: 21300000, guid: 62c512f968aec4de5b7bcf453ae0d2f6, type: 3}
-  itemDescription: 
+  itemDescription: The wands handle is broken, but the star still glows softly.
   itemMaxStack: 1
   itemMaxDurability: 100

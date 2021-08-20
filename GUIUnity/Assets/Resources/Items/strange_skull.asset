@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Strange Skull
   itemSprite: {fileID: 21300000, guid: cd13aaa12631b4b81851fe3a99488753, type: 3}
-  itemDescription: 
+  itemDescription: A strang skull... It seems to have a soft luminous pulse.
   itemMaxStack: 1
   itemMaxDurability: -1
