@@ -718,6 +718,7 @@ GameObject:
   - component: {fileID: 444342693}
   - component: {fileID: 444342691}
   - component: {fileID: 444342690}
+  - component: {fileID: 444342692}
   m_Layer: 5
   m_Name: '>CanvasMenu'
   m_TagString: Untagged
@@ -821,14 +822,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178f1adfd3ece974faa4fc5a305c2836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentUIA: {fileID: 1488207553}
-  parentUIB: {fileID: 261127396}
-  titleA: {fileID: 359716826}
-  titleB: {fileID: 1826580114}
-  contentWindowA: {fileID: 1322581521}
-  contentWindowB: {fileID: 1535078499}
-  containerNameA: Inventory
-  containerNameB: Container
+  parentUI: {fileID: 261127396}
+  title: {fileID: 1826580114}
+  contentWindow: {fileID: 1535078499}
+  containerName: Container
   SlotPrefab: {fileID: 4365125773612286952, guid: 7f334a766607d6747a35a8b9d1380208, type: 3}
 --- !u!114 &444342691
 MonoBehaviour:
@@ -843,6 +840,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: {fileID: 7332911543457683769}
+--- !u!114 &444342692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444342685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ac40cc2dc7d684aa2b243b9c3565de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentUI: {fileID: 1488207553}
+  inventoryWindow: {fileID: 1322581521}
+  SlotPrefab: {fileID: 4365125773612286952, guid: 7f334a766607d6747a35a8b9d1380208, type: 3}
 --- !u!114 &444342693
 MonoBehaviour:
   m_ObjectHideFlags: 0

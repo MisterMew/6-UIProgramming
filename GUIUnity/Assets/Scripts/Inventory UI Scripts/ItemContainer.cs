@@ -8,23 +8,19 @@ public class ItemContainer : MonoBehaviour {
     public static bool inventoryIsOpen = false;
 
     [Header("Container UI Elements")]
-    public GameObject parentUIA;
-    public GameObject parentUIB;
-    public Text titleA;
-    public Text titleB;
-    public Transform contentWindowA;  //GridLayoutWindow used to display our UIItemSlots.
-    public Transform contentWindowB; //GridLayoutWindow used to display our UIItemSlots.
+    public GameObject parentUI;
+    public Text title;
+    public Transform contentWindow;  //GridLayoutWindow used to display our UIItemSlots.
 
     [Header("Container Details")]
-    public string containerNameA;
-    public string containerNameB;
+    public string containerName;
     public GameObject SlotPrefab; //UIItemSlots prefab
 
     List<ItemSlot> items = new List<ItemSlot>();
     List<UIItemSlot> UISlots = new List<UIItemSlot>();
 
     private void Awake() {
-        Item[] tempItems = new Item[14];
+        Item[] tempItems = new Item[10];
         tempItems[0] = Resources.Load<Item>("Items/crystal_cyan");
         tempItems[1] = Resources.Load<Item>("Items/crystal_brown");
         tempItems[2] = Resources.Load<Item>("Items/crystal_indigo");
@@ -36,11 +32,6 @@ public class ItemContainer : MonoBehaviour {
         tempItems[7] = Resources.Load<Item>("Items/shard_indigo");
         tempItems[8] = Resources.Load<Item>("Items/shard_orange");
         tempItems[9] = Resources.Load<Item>("Items/shard_purple");
-
-        tempItems[10] = Resources.Load<Item>("Items/strange_skull");
-        tempItems[11] = Resources.Load<Item>("Items/pickaxe");
-        tempItems[12] = Resources.Load<Item>("Items/shovel");
-        tempItems[13] = Resources.Load<Item>("Items/wand");
     
         for (int i = 0; i < 48; i++) {
             int index = Random.Range(0, tempItems.Length);
@@ -56,20 +47,15 @@ public class ItemContainer : MonoBehaviour {
     }
 
     void InstantiateSlots(List<ItemSlot> slots) {
-        titleA.text = containerNameA.ToUpper();  //Set the name of the container
-        titleB.text = containerNameB.ToUpper(); //Set the name of the container
+        title.text = containerName.ToUpper();  //Set the name of the container
 
         // Loop through each item in the given items list and instantiate a new UIItemSlot prefab for each one.
         for (int i = 0; i < slots.Count; i++) {
-            GameObject newSlota = Instantiate(SlotPrefab, contentWindowA);  //Make sure our GridLayoutWindow is set as the parent of the new UIItemSlot object.
-            GameObject newSlotb = Instantiate(SlotPrefab, contentWindowB); //Make sure our GridLayoutWindow is set as the parent of the new UIItemSlot object.
+            GameObject newSlota = Instantiate(SlotPrefab, contentWindow);  //Make sure our GridLayoutWindow is set as the parent of the new UIItemSlot object.
 
             newSlota.name = i.ToString();                       //Name the new slot with its index in the list so we have a way of identifying it.
-            newSlotb.name = i.ToString();                      //Name the new slot with its index in the list so we have a way of identifying it.
             UISlots.Add(newSlota.GetComponent<UIItemSlot>()); //Add the new slot to our UISlots list so we can find it later.
-            UISlots.Add(newSlotb.GetComponent<UIItemSlot>());//Add the new slot to our UISlots list so we can find it later.
-
-            slots[i].AttachUI(UISlots[i]);                 //Attach the UIItemSlot to the ItemSlot it corresponds to.
+            slots[i].AttachUI(UISlots[i]);                  //Attach the UIItemSlot to the ItemSlot it corresponds to.
         }
     }
 
@@ -87,8 +73,7 @@ public class ItemContainer : MonoBehaviour {
     public void OpenContainer(List<ItemSlot> slots) {
         Debug.Log("Opened Inventory");
 
-        parentUIA.SetActive(true);
-        parentUIB.SetActive(true);
+        parentUI.SetActive(true);
 
         inventoryIsOpen = true;
     }
@@ -96,8 +81,7 @@ public class ItemContainer : MonoBehaviour {
     public void CloseContainer() {
         Debug.Log("Closed Inventory");
 
-        parentUIA.SetActive(false);  //Deactivate/close the window
-        parentUIB.SetActive(false); //Deactivate/close the window
+        parentUI.SetActive(false);  //Deactivate/close the window
 
         inventoryIsOpen = false;
     }
