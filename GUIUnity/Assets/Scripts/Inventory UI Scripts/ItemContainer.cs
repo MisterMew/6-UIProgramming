@@ -67,8 +67,9 @@ public class ItemContainer : MonoBehaviour {
             newSlota.name = i.ToString();                       //Name the new slot with its index in the list so we have a way of identifying it.
             newSlotb.name = i.ToString();                      //Name the new slot with its index in the list so we have a way of identifying it.
             UISlots.Add(newSlota.GetComponent<UIItemSlot>()); //Add the new slot to our UISlots list so we can find it later.
-            //UISlots.Add(newSlotb.GetComponent<UIItemSlot>());//Add the new slot to our UISlots list so we can find it later.
-            slots[i].AttachUI(UISlots[i]);                  //Attach the UIItemSlot to the ItemSlot it corresponds to.
+            UISlots.Add(newSlotb.GetComponent<UIItemSlot>());//Add the new slot to our UISlots list so we can find it later.
+
+            slots[i].AttachUI(UISlots[i]);                 //Attach the UIItemSlot to the ItemSlot it corresponds to.
         }
     }
 
