@@ -9,7 +9,7 @@ public class SelectionManager : MonoBehaviour {
     GraphicRaycaster raycaster;
     PointerEventData pointer;
     EventSystem eventsystem;
-    
+
     public UIItemSlot cursor; //The dragged item slot.
     
      /// AWAKE

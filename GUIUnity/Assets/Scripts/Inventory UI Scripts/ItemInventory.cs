@@ -18,7 +18,6 @@ public class ItemInventory : MonoBehaviour {
     List<UIItemSlot> UISlots = new List<UIItemSlot>();
 
     private void Awake() {
-        
         Item[] tempItems = new Item[4];
 
         tempItems[0] = Resources.Load<Item>("Items/strange_skull");
@@ -26,7 +25,7 @@ public class ItemInventory : MonoBehaviour {
         tempItems[2] = Resources.Load<Item>("Items/shovel");
         tempItems[3] = Resources.Load<Item>("Items/wand");
     
-        for (int i = 0; i < 48; i++) {
+        for (int i = 0; i < 40; i++) {
             int index = Random.Range(0, tempItems.Length);
             int amount = Random.Range(1, tempItems[index].itemMaxStack);
             int durability = Random.Range(1, tempItems[index].itemMaxDurability);
@@ -53,10 +52,12 @@ public class ItemInventory : MonoBehaviour {
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.E)) {
+            if (PauseMenu.gameIsPaused) { return; }
+
             if (!inventoryIsOpen) {
                 OpenContainer(items);
             } else {
-                CloseContainer(); 
+                CloseContainer();
             }
         }
     }

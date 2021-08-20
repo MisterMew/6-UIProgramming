@@ -5,36 +5,38 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour {
-    public AudioMixer audioMixer;
-    public Slider slider;
+    /// Variables
+    private static AudioManager musicTransitionInstance;
+    
+    [SerializeField] string volumeParameter = "volMaster";
+    [SerializeField] AudioMixer audioMixer;
+    [SerializeField] Slider slider;
+    [SerializeField] float volumeMultiplier = 20F;
 
+     /// AWAKE
+    /* Execute upon awaking */
+    private void Awake() {
+        if (musicTransitionInstance == null) {
+            musicTransitionInstance = this;
+            DontDestroyOnLoad(musicTransitionInstance);
+        } else { 
+            Destroy(gameObject); //Destroy to ensure duplicates don't exists
+        }
+
+        slider.onValueChanged.AddListener(HandleSliderValueChanged);
+    }
+
+     /// START
+    /* Execute upon starting */
     void Start() {
-        slider.value = PlayerPrefs.GetFloat("MasterVolume", slider.value);
-        slider.value = PlayerPrefs.GetFloat("MusicVolume", slider.value);
-        slider.value = PlayerPrefs.GetFloat("SFXVolume", slider.value);
+        slider.value = PlayerPrefs.GetFloat(volumeParameter, slider.value);
     }
 
-    public void SetMasterLevel() {
-        float sliderValue = slider.value;
-        Debug.Log("VOLUME: " + sliderValue);
-
-        audioMixer.SetFloat("volMaster", Mathf.Log10(sliderValue) * 20);
-        PlayerPrefs.SetFloat("MasterVolume", sliderValue);
+    private void OnDisable() {
+        PlayerPrefs.SetFloat(volumeParameter, slider.value);
     }
 
-    public void SetMusicLevel(float sliderValue) {
-        //float sliderValue = slider.value;
-        Debug.Log("VOLUME: " + sliderValue);
-
-        audioMixer.SetFloat("volMusic", Mathf.Log10(sliderValue) * 20);
-        PlayerPrefs.SetFloat("MusicVolume", sliderValue);
-    }
-
-    public void SetSFXLevel() {
-        float sliderValue = slider.value;
-        Debug.Log("VOLUME: " + sliderValue);
-
-        audioMixer.SetFloat("volSFX", Mathf.Log10(sliderValue) * 20);
-        PlayerPrefs.SetFloat("SFXVolume", sliderValue);
+    private void HandleSliderValueChanged(float sliderValue) {
+        audioMixer.SetFloat(volumeParameter, Mathf.Log10(sliderValue) * volumeMultiplier);
     }
 }

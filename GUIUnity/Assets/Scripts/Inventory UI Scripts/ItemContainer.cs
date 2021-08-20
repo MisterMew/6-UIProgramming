@@ -33,7 +33,7 @@ public class ItemContainer : MonoBehaviour {
         tempItems[8] = Resources.Load<Item>("Items/shard_orange");
         tempItems[9] = Resources.Load<Item>("Items/shard_purple");
     
-        for (int i = 0; i < 48; i++) {
+        for (int i = 0; i < 64; i++) {
             int index = Random.Range(0, tempItems.Length);
             int amount = Random.Range(1, tempItems[index].itemMaxStack);
             int durability = Random.Range(1, tempItems[index].itemMaxDurability);
@@ -61,6 +61,8 @@ public class ItemContainer : MonoBehaviour {
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.E)) {
+            if (PauseMenu.gameIsPaused) { return; }
+
             if (!inventoryIsOpen) {
                 OpenContainer(items);
             } else {

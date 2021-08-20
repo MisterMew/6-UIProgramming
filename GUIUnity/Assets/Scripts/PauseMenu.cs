@@ -9,12 +9,18 @@ public class PauseMenu : MonoBehaviour {
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (ItemInventory.inventoryIsOpen || ItemContainer.inventoryIsOpen) { return; }
+
             if (gameIsPaused) { 
-                ResumeGame(); 
+                ResumeGame();
             } 
             else { PauseGame(); }
         }
     }
+
+    /* if [PAUSED] && KeyPressed.E, ignore
+     * if [INVENTORY] && KeyPressed.ESC {closeInventory && PauseGame}
+     */
 
     public void ResumeGame() {
         Debug.Log("GAME RESUMED");
@@ -23,7 +29,7 @@ public class PauseMenu : MonoBehaviour {
         gameIsPaused = false;
     }
 
-    void PauseGame() {
+    public void PauseGame() {
         Debug.Log("GAME PAUSED");
         Time.timeScale = 0f;
         pauseMenuUI.SetActive(true);
