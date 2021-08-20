@@ -23,7 +23,7 @@ public class ItemSlot {
     
      /// ITEM SLOT: Compare
     /* Compare two items and return if they are the same */
-    public static bool CompareSlots(ItemSlot slotA, ItemSlot slotB) {
+    public static bool AreEqual(ItemSlot slotA, ItemSlot slotB) {
         if (slotA.item != slotB.item) { return false; } //Also checks if the item is NULL
         else { return true; }
     }
@@ -34,7 +34,7 @@ public class ItemSlot {
         Item tempItem = slotA.item;                  //Cache slotA's item
         int tempAmount = slotA.itemAmount;          //Cache slotA's itemAmount
         int tempDurability = slotA.itemDurability; //Cache slotA's itemAmount
-    
+        
         slotA.item = slotB.item;                       //Copy slotB's item to SlotA
         slotA.itemAmount = slotB.itemAmount;          //Copy slotB's itemAmount to SlotA
         slotA.itemDurability = slotB.itemDurability; //Copy slotB's itemAmount to SlotA
@@ -47,7 +47,7 @@ public class ItemSlot {
         slotB.RefreshUISlot();
     }
     
-     ///
+     /// UI: Attach
     /* Attaches the item to the UI Slot */
     public void AttachUI(UIItemSlot uiSlot) {
         uiItemSlot = uiSlot;
@@ -55,8 +55,8 @@ public class ItemSlot {
         RefreshUISlot();
     }
 
-    ///
-    /* Dettaches the item to the UI Slot */
+     /// UI: Detach
+    /* Detaches the item to the UI Slot */
     public void DetachUI() {
         uiItemSlot.ClearSlot();
         uiItemSlot = null;

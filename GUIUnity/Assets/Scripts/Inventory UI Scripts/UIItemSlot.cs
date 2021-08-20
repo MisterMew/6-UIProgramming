@@ -7,6 +7,7 @@ using UnityEngine.UI;
 * This class represents an inventory/container/etc slot in the UI. This could be an inventory window, a container window, a toolbelt.
 * UIItemSlots are "attached" to an ItemSlot when used, and the information from that ItemSlot is show in the UI Elements.
 */
+
 public class UIItemSlot : MonoBehaviour {
     /// Variables
     public bool isCursor = false;
@@ -16,12 +17,14 @@ public class UIItemSlot : MonoBehaviour {
     public Image icon;
     public Text amount;
     public Image durability;
-    
-     /// AWAKE
+
+    /// AWAKE
     /* As soon as the game is awake */
     private void Awake() {
         slotRect = GetComponent<RectTransform>();
-        itemSlot = new ItemSlot(); //Validates we never have a null ItemSlot
+        if (isCursor) {
+            itemSlot = new ItemSlot(); //Validates we never have a null ItemSlot
+        }
 
         icon.gameObject.SetActive(true);
         amount.gameObject.SetActive(true);
@@ -34,7 +37,6 @@ public class UIItemSlot : MonoBehaviour {
         if (!isCursor) { return; } 
         transform.position = Input.mousePosition; //Update position relative to mouse cursor
     }
-    
 
      /// SLOT: Refresh
     /* Refresh the item slot */

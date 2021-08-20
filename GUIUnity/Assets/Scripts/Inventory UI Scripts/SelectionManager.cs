@@ -47,23 +47,23 @@ public class SelectionManager : MonoBehaviour {
         }
     
         /// Compare slots with different items
-        if (!ItemSlot.CompareSlots(cursor.itemSlot, clicked.itemSlot)) { //If compared items are DIFFERENT
-            ItemSlot.SwapItems(cursor.itemSlot, clicked.itemSlot);      //Swap them over
-            cursor.RefreshSlot();                                      //Refresh the slot
+        if (!ItemSlot.AreEqual(cursor.itemSlot, clicked.itemSlot)) {//If compared items are DIFFERENT
+            ItemSlot.SwapItems(cursor.itemSlot, clicked.itemSlot); //Swap them over
+            cursor.RefreshSlot();                                 //Refresh the slot
             return;
         }
     
         /// Compare slots with like items
-        if (ItemSlot.CompareSlots(cursor.itemSlot, clicked.itemSlot)) { //If compared items are THE SAME
-            if (!cursor.itemSlot.item.isStackable) { return; }         //If the item is not stackable, we don't need to do anything
-    
+        if (ItemSlot.AreEqual(cursor.itemSlot, clicked.itemSlot)) { //If compared items are THE SAME
+            if (!cursor.itemSlot.item.isStackable) { return; }     //If the item is not stackable, we don't need to do anything
+            
             if (clicked.itemSlot.itemAmount == clicked.itemSlot.item.itemMaxStack) { return; } //Return if item amount is a full stack
             int totalAmount = cursor.itemSlot.itemAmount + clicked.itemSlot.itemAmount;       //Get the total amouunt of the items combined
             int maxItemStack = cursor.itemSlot.item.itemMaxStack;                            //Cache max stack amount for convenience
     
             if (totalAmount <= maxItemStack) {              //Validate the total amount isn't a full stack
                 clicked.itemSlot.itemAmount = totalAmount; //Combine them into one slot
-                //cursor.itemSlot.Clear();                  //Clear the slot the user was holding
+                cursor.itemSlot.Clear();                  //Clear the slot the user was holding
             } 
             else {                                                         /* Otherwise, if over a full stack */
                 clicked.itemSlot.itemAmount = maxItemStack;               //Fill the stack the user clicked on
